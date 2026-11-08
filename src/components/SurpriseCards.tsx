@@ -70,8 +70,16 @@ function FlipCard({ card, index }: { card: ComplimentCard; index: number }) {
   );
 }
 
-export default function SurpriseCards() {
-  const c = birthday.cards;
+interface SurpriseCardsProps {
+  cards?: {
+    kicker: string;
+    heading: string;
+    items: ComplimentCard[];
+  };
+}
+
+export default function SurpriseCards({ cards }: SurpriseCardsProps = {}) {
+  const c = cards ?? birthday.cards;
   return (
     <Section id="special" kicker={c.kicker} title={c.heading}>
       <div className="grid w-full grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">

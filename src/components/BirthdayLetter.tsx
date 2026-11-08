@@ -7,13 +7,26 @@ import Section from "./Section";
 import { birthday } from "@/data/birthday";
 import { personalise } from "@/lib/theme";
 
-export default function BirthdayLetter() {
-  const l = birthday.letter;
+interface BirthdayLetterProps {
+  letter?: {
+    kicker: string;
+    heading: string;
+    hint?: string;
+    paragraphs: string[];
+  };
+}
+
+export default function BirthdayLetter({ letter }: BirthdayLetterProps = {}) {
+  const l = letter ?? birthday.letter;
   const reduce = useReducedMotion();
   const [stage, setStage] = useState<0 | 1 | 2>(0); // 0 closed · 1 opening · 2 letter shown
   const timer = useRef<number | null>(null);
 
   useEffect(() => () => { if (timer.current) window.clearTimeout(timer.current); }, []);
+
+  useEffect(() => {
+    setStage(0);
+  }, [l.heading]);
 
   const open = () => {
     if (stage !== 0) return;

@@ -103,8 +103,17 @@ function Lightbox({
   );
 }
 
-export default function MemoryGallery() {
-  const g = birthday.gallery;
+interface MemoryGalleryProps {
+  gallery?: {
+    kicker: string;
+    heading: string;
+    subheading: string;
+    items: GalleryItem[];
+  };
+}
+
+export default function MemoryGallery({ gallery }: MemoryGalleryProps = {}) {
+  const g = gallery ?? birthday.gallery;
   const [active, setActive] = useState<number | null>(null);
   const close = useCallback(() => setActive(null), []);
 

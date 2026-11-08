@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Heart, Sparkles } from "lucide-react";
 import Section from "./Section";
@@ -17,10 +17,23 @@ interface Floater {
   sparkle: boolean;
 }
 
-export default function SecretMessage() {
-  const s = birthday.secret;
+interface SecretMessageProps {
+  secret?: {
+    heading: string;
+    button: string;
+    revealedTitle: string;
+    message: string;
+  };
+}
+
+export default function SecretMessage({ secret }: SecretMessageProps = {}) {
+  const s = secret ?? birthday.secret;
   const [revealed, setRevealed] = useState(false);
   const [floaters, setFloaters] = useState<Floater[]>([]);
+
+  useEffect(() => {
+    setRevealed(false);
+  }, [s.heading]);
 
   const reveal = () => {
     if (revealed) return;

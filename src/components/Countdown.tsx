@@ -40,9 +40,10 @@ interface CountdownProps {
   theme: DailyTheme;
   totalDays: number;
   memory: GalleryItem | undefined;
+  heading?: string;
 }
 
-export default function Countdown({ clock, theme, totalDays, memory }: CountdownProps) {
+export default function Countdown({ clock, theme, totalDays, memory, heading }: CountdownProps) {
   const c = birthday.countdown;
   const celebrated = useRef(false);
   const phase = clock?.phase;
@@ -58,7 +59,7 @@ export default function Countdown({ clock, theme, totalDays, memory }: Countdown
   const toGo = clock?.daysToGo ?? 0;
 
   return (
-    <Section id="countdown" kicker={c.dateLabel} title={phase === "today" ? c.todayText : phase === "after" ? c.afterText : c.heading}>
+    <Section id="countdown" kicker={c.dateLabel} title={phase === "today" ? c.todayText : phase === "after" ? c.afterText : (heading ?? c.heading)}>
       <div className="flex w-full flex-col items-center gap-10">
         {phase === "before" || phase === undefined ? (
           <div

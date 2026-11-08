@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { birthday } from "@/data/birthday";
+import { allDays, getDaySurprise } from "@/data/days";
 import { useCountdown } from "@/hooks/useCountdown";
 import { applyTheme } from "@/lib/theme";
 import WelcomeScreen from "@/components/WelcomeScreen";
@@ -26,14 +27,17 @@ const SECTIONS: NavSection[] = [
 ];
 
 export default function Home() {
-  const { birthdayDate, firstDay, dailyThemes, welcome, gallery, footer } = birthday;
+  const { birthdayDate, firstDay } = birthday;
   const target = useMemo(
     () => new Date(birthdayDate.year, birthdayDate.month - 1, birthdayDate.day, 0, 0, 0),
     [birthdayDate.year, birthdayDate.month, birthdayDate.day]
   );
 
-  const clock = useCountdown(target, firstDay, dailyThemes.length);
-  const theme = dailyThemes[clock?.dayIndex ?? 0];
+  const clock = useCountdown(target, firstDay, allDays.length);
+  const dayIndex = clock?.dayIndex ?? 0;
+  const todaySurprise = getDaySurprise(dayIndex);
+  const theme = todaySurprise.theme;
+
   const [opened, setOpened] = useState(false);
   const music = useRef<MusicHandle>(null);
 
@@ -54,22 +58,28 @@ export default function Home() {
     window.scrollTo({ top: 0 });
   };
 
-  const memory = gallery.items.length
-    ? gallery.items[(clock?.dayIndex ?? 0) % gallery.items.length]
-    : undefined;
+  const memory = todaySurprise.countdown.highlightMemory ?? (
+    todaySurprise.gallery.items.length
+      ? todaySurprise.gallery.items[0]
+      : undefined
+  );
 
   return (
     <MotionConfig reducedMotion="user">
       <FloatingElements kinds={theme.decor} count={16} />
-      <MusicPlayer ref={music} />
+      <MusicPlayer
+        ref={music}
+        src={todaySurprise.music.src}
+        label={todaySurprise.music.label}
+      />
 
       <AnimatePresence>
         {!opened && (
           <WelcomeScreen
             key="welcome"
-            title={welcome.title}
-            subtitle={welcome.subtitle}
-            button={welcome.button}
+            title={todaySurprise.welcome.title}
+            subtitle={todaySurprise.welcome.subtitle}
+            button={todaySurprise.welcome.button}
             kinds={theme.decor}
             onOpen={handleOpen}
           />
@@ -84,15 +94,21 @@ export default function Home() {
         transition={{ duration: 1, ease: "easeOut" }}
         className="relative z-10"
       >
-        <Countdown clock={clock} theme={theme} totalDays={dailyThemes.length} memory={memory} />
-        <BirthdayLetter />
-        <MemoryGallery />
-        <SurpriseCards />
-        <SecretMessage />
-        <GiftBox phase={clock?.phase} />
+        <Countdown
+          clock={clock}
+          theme={theme}
+          totalDays={allDays.length}
+          memory={memory}
+          heading={todaySurprise.countdown.heading}
+        />
+        <BirthdayLetter letter={todaySurprise.letter} />
+        <MemoryGallery gallery={todaySurprise.gallery} />
+        <SurpriseCards cards={todaySurprise.cards} />
+        <SecretMessage secret={todaySurprise.secret} />
+        <GiftBox phase={clock?.phase} gift={todaySurprise.gift} />
 
         <footer className="relative z-10 px-5 pb-16 pt-6 text-center font-script text-2xl text-ink/70">
-          {footer}
+          {todaySurprise.footer}
         </footer>
       </motion.main>
     </MotionConfig>

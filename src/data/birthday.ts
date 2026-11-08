@@ -95,12 +95,10 @@ export const birthday = {
      * Missing photos show an elegant placeholder, so nothing breaks.
      */
     items: [
-      { src: "/images/memories/memory-1.jpg", caption: "The day we couldn't stop laughing", rotate: -4, size: "lg", tape: "#F7C9D4", flower: true },
-      { src: "/images/memories/memory-2.jpg", caption: "Pure happiness", rotate: 3, size: "sm", tape: "#D9B8E8" },
-      { src: "/images/memories/memory-3.jpg", caption: "My favourite human", rotate: -2, size: "md", tape: "#E8C77B" },
-      { src: "/images/memories/memory-4.jpg", caption: "That unforgettable day", rotate: 4, size: "md", tape: "#F7C9D4" },
-      { src: "/images/memories/memory-5.jpg", caption: "Pretty and wild", rotate: -3, size: "lg", tape: "#D9B8E8", flower: true },
-      { src: "/images/memories/memory-6.jpg", caption: "Just us being us", rotate: 2, size: "sm", tape: "#E8C77B" },
+      { src: "/images/memories/memory-1.png", caption: "The day we couldn't stop laughing", rotate: -4, size: "lg", tape: "#F7C9D4", flower: true },
+      { src: "/images/memories/memory-2.png", caption: "Pure happiness", rotate: 3, size: "sm", tape: "#D9B8E8" },
+      { src: "/images/memories/memory-3.png", caption: "My favourite human", rotate: -2, size: "md", tape: "#E8C77B" },
+      { src: "/images/memories/memory-4.png", caption: "That unforgettable day", rotate: 4, size: "md", tape: "#F7C9D4" },
     ] as GalleryItem[],
   },
 

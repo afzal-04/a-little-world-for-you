@@ -25,25 +25,36 @@ function splitHeading(text: string): { words: string; emoji: string } {
   return m ? { words: m[1], emoji: m[2] } : { words: text, emoji: "" };
 }
 
-export default function GiftBox({ phase }: { phase: Phase | undefined }) {
+interface GiftBoxProps {
+  phase: Phase | undefined;
+  gift?: {
+    heading: string;
+    button: string;
+    lockedButton?: string;
+    lockedHint?: string;
+    revealedHeading: string;
+    paragraphs: string[];
+    video?: string;
+    voice?: string;
+  };
+}
+
+export default function GiftBox({ phase, gift }: GiftBoxProps) {
   const g = birthday.gift;
-  const heading = splitHeading(g.finalHeading);
+  const currentHeadingText = gift?.revealedHeading ?? g.finalHeading;
+  const heading = splitHeading(currentHeadingText);
   const [opened, setOpened] = useState(false);
   const [shaking, setShaking] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [forceUnlock, setForceUnlock] = useState(false);
   const busy = useRef(false);
 
-  // `?unlock=1` lets you preview the final gift early
   useEffect(() => {
-    try {
-      setForceUnlock(new URLSearchParams(window.location.search).get("unlock") === "1");
-    } catch {
-      /* ignore */
-    }
-  }, []);
+    setOpened(false);
+  }, [gift?.heading]);
 
-  const locked = g.lockUntilBirthday && phase !== "today" && phase !== "after" && !forceUnlock;
+  // Always unlocked for daily surprises
+  const locked = false;
 
   const handleClick = () => {
     if (busy.current || opened) return;
@@ -122,7 +133,7 @@ export default function GiftBox({ phase }: { phase: Phase | undefined }) {
               className="btn-primary focus-ring"
               aria-disabled={locked}
             >
-              {locked ? g.lockedButton : g.button}
+              {locked ? (gift?.lockedButton ?? g.lockedButton) : (gift?.button ?? g.button)}
             </motion.button>
             <AnimatePresence>
               {showHint && locked && (
@@ -133,7 +144,7 @@ export default function GiftBox({ phase }: { phase: Phase | undefined }) {
                   role="status"
                   className="max-w-xs font-script text-2xl text-ink/80"
                 >
-                  {g.lockedHint}
+                  {gift?.lockedHint ?? g.lockedHint}
                 </motion.p>
               )}
             </AnimatePresence>
@@ -184,7 +195,7 @@ export default function GiftBox({ phase }: { phase: Phase | undefined }) {
           </motion.p>
 
           <div className="glass mt-8 space-y-4 rounded-3xl px-6 py-8 shadow-glow sm:px-10">
-            {g.finalParagraphs.map((p, i) => (
+            {(gift?.paragraphs ?? g.finalParagraphs).map((p, i) => (
               <motion.p
                 key={i}
                 initial={{ opacity: 0, y: 16 }}
@@ -197,21 +208,24 @@ export default function GiftBox({ phase }: { phase: Phase | undefined }) {
             ))}
           </div>
 
-          {g.video && (
-            <motion.video
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 4.2, duration: 1 }}
-              className="mt-8 w-full max-w-md rounded-2xl shadow-soft"
-              controls
-              playsInline
-              preload="none"
-              src={g.video}
-              aria-label="A personal video message"
-              onError={(e) => { e.currentTarget.style.display = "none"; }}
-            />
+          {(gift?.video ?? g.video) && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="mt-8 w-full max-w-lg overflow-hidden rounded-3xl shadow-glow"
+            >
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                src={gift?.video ?? g.video}
+                aria-label="Today's surprise video"
+                className="w-full rounded-3xl bg-black/60 shadow-soft"
+              />
+            </motion.div>
           )}
-          {g.voice && (
+          {(gift?.voice ?? g.voice) && (
             <motion.audio
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -219,7 +233,7 @@ export default function GiftBox({ phase }: { phase: Phase | undefined }) {
               className="mt-6 w-full max-w-sm"
               controls
               preload="none"
-              src={g.voice}
+              src={gift?.voice ?? g.voice}
               aria-label="A personal voice message"
               onError={(e) => { e.currentTarget.style.display = "none"; }}
             />
