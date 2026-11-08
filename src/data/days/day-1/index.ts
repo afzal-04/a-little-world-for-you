@@ -24,12 +24,12 @@ export const day1: DailySurprise = {
     label: "Dilruba Dilhaseen 🎵",
   },
   welcome: {
-    title: "Hey You! ✨",
+    title: "Hey Aashi! ✨",
     subtitle: "Welcome to Day 1 of your birthday countdown. A whole week of surprises starts today...",
     button: "Open Today's Surprise 💗",
   },
   countdown: {
-    heading: "Something beautiful is coming...",
+    heading: "Something beautiful is coming for Aashi...",
     highlightMemory: {
       src: "/days/day-1/memories/memory-5.jpg",
       caption: "A special moment just for today",
@@ -40,11 +40,15 @@ export const day1: DailySurprise = {
     },
   },
   letter: {
-    kicker: "chapter 1",
+    kicker: "chapter 1 · for Aashi",
     heading: "The Beginning of Your Week",
     hint: "Tap the envelope",
     paragraphs: [
-      "Welcome to Day 1! I wanted to start this countdown by reminding you how much warmth and joy you bring into my life.",
+      "Na chaand ki khwahish, na sitaaron ki farmaish hai,",
+      "Bas ek khoobsurat si muskurahat ki guzaarish hai,",
+      "Naam toh bahut sune hain duniya mein humne,",
+      "Magar Aashiya, tere naam mein hi ek alag si khwaahish hai. ✨",
+      "Welcome to Day 1, Aashi! I wanted to start this countdown by reminding you how much warmth and joy you bring into my life.",
       "Some people just make ordinary days feel lighter simply by being around, and you are definitely one of them.",
       "Every day from today until your birthday, this little corner of the world will change just for you with new notes, memories, and little surprises.",
       "Take your time, smile, and get ready for an amazing week ahead. 💗",
@@ -76,8 +80,8 @@ export const day1: DailySurprise = {
   secret: {
     heading: "Psst... Day 1 Secret",
     button: "Reveal Day 1 Secret",
-    revealedTitle: "A secret for day one",
-    message: "I started planning this countdown weeks ago because making you smile is genuinely one of my favourite things to do. 💗",
+    revealedTitle: "A secret, just for Aashi",
+    message: "I started planning this countdown weeks ago because making you smile, Aashi, is genuinely one of my favourite things to do. 💗",
   },
   gift: {
     heading: "Day 1 Surprise Box 🎁",
@@ -88,5 +92,5 @@ export const day1: DailySurprise = {
     ],
     video: "/videos/V1.mp4",
   },
-  footer: "Day 1 of 8 · Made with love, just for you 💗",
+  footer: "Day 1 of 8 · Made with love, just for Aashi 💗",
 };

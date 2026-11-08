@@ -50,7 +50,7 @@ export interface ComplimentCard {
 
 export const birthday = {
   /** Her name or nickname. Used in a few places ("Happy Birthday, {name}"). */
-  herName: "Beautiful",
+  herName: "Aashi",
 
   /** Birthday: 15 November 2026 (month is 1-12). Countdown uses the visitor's local time. */
   birthdayDate: { year: 2026, month: 11, day: 15 },

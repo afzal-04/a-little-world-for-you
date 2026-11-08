@@ -41,15 +41,15 @@ export const day8: DailySurprise = {
   },
   letter: {
     kicker: "the birthday letter",
-    heading: "Happy Birthday, Beautiful",
+    heading: "Happy Birthday, Aashi 🎂",
     hint: "Tap to open your birthday letter",
     paragraphs: [
-      "Happy Birthday! 🎂✨",
+      "Happy Birthday, Aashi! 🎂✨",
       "Today isn't just another date on the calendar; it's the celebration of someone truly extraordinary coming into this world.",
       "You bring so much sunshine, laughter, comfort, and beauty to everyone lucky enough to know you. Your heart is generous, your humor is unmatched, and your spirit is pure gold.",
       "I hope today showers you with love, pleasant surprises, warm hugs, delicious cake, and moments you'll cherish forever.",
       "May this new year of your life be filled with answered prayers, good health, wild dreams achieved, and endless reasons to smile.",
-      "Happy, happy Birthday! You are loved so very much. 💗",
+      "Happy, happy Birthday, Aashi! You are loved so very much. 💗",
     ],
   },
   gallery: {
@@ -92,5 +92,5 @@ export const day8: DailySurprise = {
     ],
     video: "/videos/V4.mp4",
   },
-  footer: "Happy Birthday! Made with love, just for you 🎂💗",
+  footer: "Happy Birthday Aashi! Made with love, just for you 🎂💗",
 };
