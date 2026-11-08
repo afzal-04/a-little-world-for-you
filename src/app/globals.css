@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Day-1 palette is the default; the daily theme overrides these at runtime */
+  --c-primary: 247 201 212;
+  --c-secondary: 252 228 236;
+  --c-bg: 255 248 245;
+  --c-accent: 217 184 232;
+  --c-gold: 232 199 123;
+  --c-text: 89 70 83;
+  --c-card: 255 255 255;
+
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-script: "Dancing Script", "Segoe Script", "Brush Script MT", cursive;
+  --font-body: "Quicksand", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  overflow-x: clip;
+  max-width: 100vw;
+  font-family: var(--font-body);
+  color: rgb(var(--c-text));
+  background-color: rgb(var(--c-bg));
+  background-image:
+    radial-gradient(60rem 40rem at 10% -5%, rgb(var(--c-primary) / 0.55), transparent 60%),
+    radial-gradient(50rem 36rem at 95% 20%, rgb(var(--c-accent) / 0.4), transparent 60%),
+    radial-gradient(60rem 40rem at 30% 105%, rgb(var(--c-secondary) / 0.9), transparent 60%);
+  background-attachment: fixed;
+  transition: background-color 0.8s ease, color 0.8s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgb(var(--c-primary) / 0.6);
+}
+
+@layer components {
+  .btn-primary {
+    @apply relative inline-flex min-h-[3.25rem] items-center justify-center gap-2 rounded-full px-8 py-3.5 text-base font-semibold shadow-soft transition-shadow sm:text-lg;
+    color: #3d2433;
+    background-image: linear-gradient(120deg, rgb(var(--c-primary)), rgb(var(--c-accent)));
+  }
+  .btn-primary:hover {
+    @apply shadow-glow;
+  }
+  .btn-primary:disabled {
+    @apply cursor-not-allowed opacity-80;
+  }
+  .glass {
+    @apply border border-white/40 bg-card/60 backdrop-blur-md;
+    border-color: rgb(var(--c-primary) / 0.45);
+  }
+  .paper {
+    background: #fffdf8;
+    color: #594653;
+  }
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-transparent;
+  }
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Soft shimmer for headings */
+.text-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    rgb(var(--c-text)) 20%,
+    rgb(var(--c-gold)) 45%,
+    rgb(var(--c-primary)) 55%,
+    rgb(var(--c-text)) 80%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  20% { transform: translateX(-6px) rotate(-2deg); }
+  40% { transform: translateX(6px) rotate(2deg); }
+  60% { transform: translateX(-4px) rotate(-1deg); }
+  80% { transform: translateX(4px) rotate(1deg); }
+}
+.shake {
+  animation: shake 0.5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
